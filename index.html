@@ -3,96 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>For Nafisat ❤️</title>
     <style>
-        /* Premium Romantic Background and Font */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap');
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             width: 100vw;
-            background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevents scrollbars when the button runs away */
+            background: linear-gradient(rgba(50, 5, 15, 0.6), rgba(20, 0, 5, 0.85)), url('1001059095.png') center/cover no-repeat fixed;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            color: #ffffff;
+            position: relative; /* For the overlay and flowers */
         }
 
-        .card {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            backdrop-filter: blur(10px);
-            z-index: 10;
+        /* Success background overlay for a smooth transition */
+        #success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* A warmer, brighter romantic glow */
+            background: linear-gradient(rgba(255, 117, 140, 0.3), rgba(255, 126, 179, 0.5));
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .gif-image {
-            width: 200px;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 50px 40px;
             border-radius: 16px;
-            margin-bottom: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            z-index: 10;
+            transition: all 0.5s ease;
         }
 
         h1 {
-            color: #ff4b72;
-            font-size: 28px;
-            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: #ffeff4;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         p {
-            color: #ff758c;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 300;
+            color: #e2cdd2;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
 
         .button-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 20px;
+            gap: 16px;
             position: relative;
+            height: 48px; 
         }
 
         button {
-            padding: 12px 32px;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
+            padding: 0 32px;
+            height: 48px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         #yes-btn {
-            background-color: #ff4b72;
-            color: white;
-            transition: transform 0.2s ease;
+            background: #d90429;
+            color: #ffffff;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4);
         }
 
         #yes-btn:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            background: #ef233c;
+            box-shadow: 0 6px 20px rgba(239, 35, 60, 0.6);
         }
 
         #no-btn {
-            background-color: #f1f1f1;
-            color: #333;
-            /* Smooth animation so it glides away instead of teleporting instantly */
-            transition: top 0.3s ease, left 0.3s ease; 
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            transition: top 0.4s cubic-bezier(0.25, 1, 0.5, 1), left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .signature {
+            margin-top: 35px;
+            font-size: 11px;
+            color: #a38c91;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .success-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        /* Particle System CSS for the flowers */
+        .flower {
+            position: absolute;
+            top: -10%;
+            z-index: 5;
+            pointer-events: none;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); opacity: 0.5; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card" id="card">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzY0ZjlkY2E4Y2Y5Y2Q4ZDU5Y2E4MzY4YmI3OTFjYjY5Y2UyZThmYiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/KL7xA3fTO7sRXIbmWf/giphy.gif" alt="Pleading Cat" class="gif-image">
-        
-        <h1>Will you be my girlfriend? 🥺</h1>
+    <div id="success-overlay"></div>
+
+    <audio id="romantic-music" src="music.mp3"></audio>
+
+    <div class="glass-card" id="card">
+        <h1>Nafisat,</h1>
+        <p>Will you be my girlfriend? <br>(Even though we both know you already are)</p>
         
         <div class="button-container">
             <button id="yes-btn">Yes</button>
@@ -104,37 +168,71 @@
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const card = document.getElementById('card');
+        const overlay = document.getElementById('success-overlay');
+        const music = document.getElementById('romantic-music');
 
-        // Function to make the "No" button run away
+        // Advanced evasion logic
         const moveButton = () => {
-            // Get the window boundaries
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
-            // Subtract the button's own width/height so it doesn't fly off the screen
-            const maxX = windowWidth - noBtn.offsetWidth;
-            const maxY = windowHeight - noBtn.offsetHeight;
+            const padding = 20; 
+            const maxX = windowWidth - noBtn.offsetWidth - padding;
+            const maxY = windowHeight - noBtn.offsetHeight - padding;
 
-            // Generate random coordinates
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-            // Change position to fixed so it can go anywhere on the screen
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
+            noBtn.style.zIndex = '999';
         };
 
-        // Triggers for both mouse (desktop) and touch (mobile)
         noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            moveButton();
+        });
 
-        // Success state when she clicks "Yes"
+        // Flower Particle Generator
+        function createFlower() {
+            const flower = document.createElement('div');
+            // Array of different flowers and sparkles
+            const emojis = ['🌸', '🌺', '💮', '✨']; 
+            flower.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            flower.classList.add('flower');
+            
+            // Randomize position, size, and falling speed
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 3 + 3 + 's'; // falls between 3 and 6 seconds
+            flower.style.fontSize = Math.random() * 1.5 + 1 + 'rem'; // sizes between 1rem and 2.5rem
+
+            document.body.appendChild(flower);
+
+            // Clean up the DOM so it doesn't crash the browser
+            setTimeout(() => {
+                flower.remove();
+            }, 6000);
+        }
+
+        // The Success Climax
         yesBtn.addEventListener('click', () => {
+            // 1. Play Music
+            music.play().catch(error => console.log("Audio playback requires user interaction:", error));
+            
+            // 2. Change Background (Fade in the warm overlay)
+            overlay.style.opacity = '1';
+
+            // 3. Start Flower Rain
+            setInterval(createFlower, 300); // Spawns a new flower every 300ms
+
+            // 4. Update the Card UI
             card.innerHTML = `
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2FjMzI1Y2M0Y2Y5Y2Q4ZDU5Y2E4MzY4YmI3OTFjYjY5Y2UyZThmYiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/sIIhZliB2McAo/giphy.gif" alt="Happy Cat" class="gif-image">
-                <h1>I knew you'd say Yes! ❤️</h1>
-                <p>Get ready for our date!</p>
+                <h1 class="success-heading">It's Official.</h1>
+                <p style="color: #ffe6eb; font-size: 16px; margin-bottom: 10px; font-weight: 400;">The perfect response.</p>
+                <p style="color: #e2cdd2; font-size: 14px;">Get ready, I'm making it official ♥️</p>
+                <div class="signature">Engineered by 𖤐 𝕮𝖆𝖓𝖉𝖞.𝕯𝖊𝖛 ♨️⌁</div>
             `;
         });
     </script>
